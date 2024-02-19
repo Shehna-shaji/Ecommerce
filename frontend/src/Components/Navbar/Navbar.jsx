@@ -1,18 +1,27 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import './Navbar.css';
 import logo from '../../assets/logo.png';
 import cart_icon from '../../assets/cart_icon.png';
 import { Link } from 'react-router-dom';
+import drop_down from '../../assets/dropdown_icon.png';
 
 export default function Navbar() {
     const[menu,setMenu]=useState("shop");
+    const menuRef=useRef();
+
+    const dropdown_toggle=()=>{
+      menuRef.current.classList.toggle('nav-menu-visible')
+      e.target.classList.toggle('open');
+
+    }
   return (
     <div className='navbar'>
         <div className='nav-logo'>
             <img src={logo}/>
             <p>SHOPPER</p>
         </div>
-        <ul className='nav-menu'>
+        <img onClick={dropdown_toggle} src={drop_down} className='nav-dropdown'/>
+        <ul ref={menuRef} className='nav-menu'>
             
            <li onClick={()=>setMenu("shop")}> <Link to='/' style={{textDecoration:'none'}}>Shop</Link>  {menu==="shop"?<hr/>:<></>} </li>
             <li onClick={()=>setMenu("mens")}> <Link to='/mens' style={{textDecoration:'none'}}>Men</Link> {menu==="mens"?<hr/>:<></>}</li>
